@@ -18,9 +18,10 @@ public class Main {
                System.out.println("please input commodity number");
                 int bno = sn.nextInt();
                 commodity com = FindBook(bno);
+                if(com.getId()==-1) System.out.println("not found");
            }
            else if(choice==2){
-
+               commodity AllCommodity = ShowBook();
            }
            else if(choice==3){
 
@@ -81,5 +82,48 @@ public class Main {
         conn.close();
         return com;
     }
+    public static commodity ShowBook() throws ClassNotFoundException, SQLException {
 
+        String url = "jdbc:mysql://localhost:3306/store?useSSL=false&" +
+                "allowPublicKeyRetrieval=true";
+        String user = "user001";
+        String password = "user001";  // 使用新设置的密码
+
+
+        // 加载MySQL JDBC驱动
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        // 建立连接
+        Connection conn = DriverManager.getConnection(url, user, password);
+        Statement sta = conn.createStatement();
+        System.out.println("Connected to database!");
+        ResultSet res= sta.executeQuery("select * from commodities;");
+        commodity com = new commodity();
+        while(res.next()){
+            System.out.println(res.getInt("id")+"  "+
+                    res.getString("name")+" "+
+                    res.getString("brand")+" "+
+                    res.getFloat("price"));
+            int id = res.getInt("id");
+            String name  = res.getString("name");
+            String brand = res.getString("brand");
+            float price = res.getFloat("price");
+
+
+            com.setId(id);
+            com.setName(name);
+            com.setBrand(brand);
+            com.setPrice(price);
+
+
+
+        }
+
+
+
+        sta.close();
+        conn.close();
+        return com;
+    }
+    
 }
