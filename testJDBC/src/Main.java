@@ -3,7 +3,7 @@ import java.sql.*;
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
-        String url = "jdbc:mysql://localhost:3306/TestDatabase00?useSSL=false&allowPublicKeyRetrieval=true";
+        String url = "jdbc:mysql://localhost:3306/apsfc?useSSL=false&allowPublicKeyRetrieval=true";
         String user = "user001";
         String password = "user001";  // 使用新设置的密码
 

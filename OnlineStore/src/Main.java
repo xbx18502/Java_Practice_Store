@@ -14,11 +14,12 @@ public class Main {
        while(true){
            System.out.println("please input your option");
            int choice = sn.nextInt();
+           //commodity com = null;
            if(choice==1){
                System.out.println("please input commodity number");
                 int bno = sn.nextInt();
                 commodity com = FindBook(bno);
-                if(com.getId()==-1) System.out.println("not found");
+                if(com == null) System.out.println("not found");
            }
            else if(choice==2){
                commodity AllCommodity = ShowBook();
@@ -55,7 +56,7 @@ public class Main {
         Statement sta = conn.createStatement();
         System.out.println("Connected to database!");
         ResultSet res= sta.executeQuery("select * from commodities where id="+bno+";");
-        commodity com = new commodity();
+        commodity com = null;
         if(res.next()){
             System.out.println(res.getInt("id")+"  "+
                     res.getString("name")+" "+
@@ -66,7 +67,7 @@ public class Main {
             String brand = res.getString("brand");
             float price = res.getFloat("price");
 
-
+            com = new commodity();
             com.setId(id);
             com.setName(name);
             com.setBrand(brand);
